@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -50,12 +51,16 @@ public class MainActivity extends AppCompatActivity {
         this.listaContatos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // rever...
                 dao.delete(new Contatos(contatos.get(position).getNome(), contatos.get(position).getEmail()));
                 contatos.remove(adapter.getItem(position));
                 adapter.notifyDataSetChanged();
                 return true;
             }
         });
+
+        recuperaPorId();
+        atualiza();
     }
 
     private void initUi(){
@@ -87,5 +92,17 @@ public class MainActivity extends AppCompatActivity {
         contatos = this.dao.getAll();
         this.adapter = new ContatosAdapter(contatos, this);
         this.listaContatos.setAdapter(adapter);
+    }
+
+    private void recuperaPorId(){
+
+        Contatos c = this.dao.getById(3);
+        Toast.makeText(this, "" + c.getEmail(), Toast.LENGTH_SHORT).show();
+    }
+
+    // rever...
+    private void atualiza(){
+        Contatos c = new Contatos("Luíza", "iza@hotmail.com");
+        this.dao.update(c);
     }
 }
