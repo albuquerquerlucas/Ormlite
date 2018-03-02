@@ -33,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if(this.dao.getAll().size() > 0){
-            carregaLista();
-        }
+        verificaLista();
 
         this.btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
         this.edtNome.setText("");
         this.edtEmail.setText("");
         this.edtNome.requestFocus();
+    }
+
+    private void verificaLista(){
+        if(this.dao.getAll().size() > 0){
+            carregaLista();
+        }
     }
 
     private void carregaLista(){
